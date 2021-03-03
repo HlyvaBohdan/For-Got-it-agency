@@ -1,0 +1,48 @@
+<div class="container ">
+    <h1 style="text-align: center;">Інформація про кімнату</h1>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h3 class="card-title">Room {{room?.code}}</h3>
+            <h4 class="card-title">
+                <p>{{room?.appointment.start_time}}</p>
+            </h4>
+            <h5 class="card-title">HT: {{room?.appointment.vital_signs.height_ft}}, WT:
+                {{room?.appointment.vital_signs.weight}}, BMI:{{room?.appointment.vital_signs.bmi}}</h5>
+            <div style="display: flex;">
+                <h3 *ngIf="room?.appointment.is_doctor==true">Dr. </h3>
+                <h3 *ngIf="room?.appointment.is_doctor!=true && room?.appointment.gender =='Male'">Mr. </h3>
+                <h3 *ngIf="room?.appointment.is_doctor!=true && room?.appointment.gender =='Female'">Ms. </h3>
+                <h3>{{room?.appointment.first_name}} {{room?.appointment.last_name}}, {{room?.appointment.gender}}</h3>
+            </div>
+            <input type="button" class="btn btn-warning" [routerLink]="[ '/allrooms' ]" style="padding: 10px;"
+                value="Повернутись до кімнат">
+        </div>
+    </div>
+    <h1 style="text-align: center;" class="mt-4" *ngIf="!statusTabs">Вибір форми</h1>
+    <div class="card" style="text-align: center;" *ngIf="!statusTabs">
+        <form>
+            <div class="form-group mt-2" *ngFor="let form of formsArray">
+                <label for="form.code">{{form.title}}</label>
+                <input type="checkbox" class="form-control" id="form.code" (click)="chooseForm(form.code)">
+            </div>
+            <input type="button" class="btn btn-success" value="Вибрати всe" (click)="selectAll(true)">
+            <input type="button" class="btn btn-warning" value="Скинути все" (click)="selectAll(false)">
+            <input type="button" class="btn btn-info" value="Sign" *ngIf="statusSign" (click)="showMoreInformation()">
+        </form>
+    </div>
+    <ul class="nav nav-tabs" *ngIf="statusTabs">
+        <li class="nav-item" *ngFor="let item of checkboxArray">
+            <a class="nav-link" (click)="showMoreInformation(item)">{{item}}</a>
+        </li>
+    </ul>
+    <ul type='none'>
+        <li *ngFor="let item of moreInformation">
+            <div class="form-group mt-2" *ngIf="item.need_initials==true">
+                <input type="checkbox" class="form-control" style="float: left; width: 10%;" (click)="changeCheckbox()">
+                <p class="name" style="float: left; margin-right: 5px;">{{room?.appointment.first_name}}
+                    {{room?.appointment.last_name}} </p>
+            </div>
+            <p>{{item.content}}</p>
+        </li>
+    </ul>
+</div>

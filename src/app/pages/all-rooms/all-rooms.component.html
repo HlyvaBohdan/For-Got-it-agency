@@ -1,0 +1,15 @@
+<div class="container ">
+    <div class="card" style="width: 20rem;" *ngFor="let room of allRoomsArray">
+        <div class="card-body">
+            <h5 class="card-title">Room{{room.code}} ({{room.appointment.code}})</h5>
+            <h6 class="card-title">{{room.appointment.first_name}} {{room.appointment.last_name}}</h6>
+            <p style="min-height: 50px;">{{room.status.title}}</p>
+            <p>{{room.appointment.start_time}}</p>
+            <p>{{room.update_time |date:'HH:mm:SS'}}</p>
+            <p>{{room.appointment.doctor_title}}</p>
+            <p>{{room.appointment.assistant}}</p>
+            <input type="button" class="btn btn-success" [routerLink]="[ '/allrooms',room.code ]" style="padding: 10px;"
+                value="Детальніше">
+        </div>
+    </div>
+</div>

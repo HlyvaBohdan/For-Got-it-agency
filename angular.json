@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "for-got-it-agency"
+    }
+  },
+  "defaultProject": "for-got-it-agency",
+  "cli": {
+    "analytics": false
+  }
 }
